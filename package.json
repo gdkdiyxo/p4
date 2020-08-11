@@ -1,0 +1,23 @@
+{
+  "name": "scraping",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build-css": "tailwindcss build src/styles.css -o public/styles.css",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.3",
+    "express": "^4.17.1",
+    "hbs": "^4.1.1",
+    "mysql": "^2.18.1",
+    "node-fetch": "^2.6.0",
+    "puppeteer-autoscroll-down": "^0.1.6",
+    "request": "^2.88.2",
+    "tailwindcss": "^1.6.2"
+  }
+}
