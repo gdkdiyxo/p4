@@ -5,22 +5,21 @@ const con = require('./connection');
 const b = (async () => {
     const browser = await puppeteer.launch({ headless: false });
     const page = await browser.newPage();
-    await page.goto('https://www.maukerja.my/?cat=462-it&jtype=1-Internship', { waitUntil: 'load' });
+    await page.goto('https://www.jobstreet.com.my/en/job-search/computer-information-technology-jobs/?job-type=internship', { waitUntil: 'load' });
     // await page.waitForSelector('.result_text a');
     await page.setViewport({
         width: 1200,
         height: 800
     });
 
-    await autoScroll(page);
 
     // Get the "viewport" of the page, as reported by the page.
     const data = await page.evaluate(() => {
 
-        var names = document.querySelectorAll('.media-content .title a');
-        var companies = document.querySelectorAll('.media-content .subtitle a');
-        var links = document.querySelectorAll(".card-content > a");
-        var locations = document.querySelectorAll('.card-content p .text-truncate-2-line');
+        var names = document.querySelectorAll('.job-list-title h4');
+        var companies = document.querySelectorAll('.job-list-title p');
+        var locations = document.querySelectorAll('.job-list-title p');
+        var links = document.querySelectorAll('.job-list-title h4 a');
 
         var name = Array.from(names, name => name.innerText)
         var company = Array.from(companies, company => company.innerText)
@@ -49,25 +48,3 @@ const b = (async () => {
 
     await browser.close();
 })();
-
-
-async function autoScroll(page) {
-    await page.evaluate(async () => {
-        await new Promise((resolve, reject) => {
-            var totalHeight = 0;
-            var distance = 100;
-            var timer = setInterval(() => {
-                var scrollHeight = document.body.scrollHeight;
-                window.scrollBy(0, distance);
-                totalHeight += distance;
-
-                if (totalHeight >= scrollHeight) {
-                    clearInterval(timer);
-                    resolve();
-                }
-            }, 100);
-        });
-    });
-}
-
-module.exports = b;
