@@ -5,12 +5,13 @@ const con = require('./connection');
 const b = (async () => {
     const browser = await puppeteer.launch({ headless: false });
     const page = await browser.newPage();
-    await page.goto('https://www.maukerja.my/?cat=462-it&jtype=1-Full-Time', { waitUntil: 'load' });
+    await page.goto('https://www.maukerja.my/?cat=462-it&jtype=1-Internship', { waitUntil: 'load' });
     // await page.waitForSelector('.result_text a');
     await page.setViewport({
         width: 1200,
         height: 800
     });
+
     await autoScroll(page);
 
     // Get the "viewport" of the page, as reported by the page.
@@ -25,17 +26,26 @@ const b = (async () => {
         var dimensions = document.querySelectorAll('.media-content .subtitle a');
         return Array.from(dimensions, dimension => dimension.innerText)
     });
-    console.log(a);
+
+    const c = await page.evaluate(() => {
+        var dimensions = document.querySelectorAll(".card-content > a");
+        return Array.from(dimensions, dimension => dimension.href)
+    })
+    const d = await page.evaluate(() => {
+        var dimensions = document.querySelectorAll('.card-content p .text-truncate-2-line');
+        return Array.from(dimensions, dimension => dimension.innerText)
+    })
+    console.log(d);
 
 
 
-    for (i = 0; i < a.length; i++) {
-        var sql = "INSERT INTO job (name, company) VALUES ('" + a[i] + "'," + "'" + b[i] + "')";
-        con.query(sql, function (err, result) {
-            if (err) throw err;
-            console.log("All jobs record inserted");
-        });
-    }
+    // for (i = 0; i < a.length; i++) {
+    //     var sql = "INSERT INTO job (name, company) VALUES ('" + a[i] + "'," + "'" + b[i] + "')";
+    //     con.query(sql, function (err, result) {
+    //         if (err) throw err;
+    //         console.log("All jobs record inserted");
+    //     });
+    // }
 
 
 
