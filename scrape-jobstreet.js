@@ -8,18 +8,18 @@ const b = (async () => {
     await page.goto('https://www.jobstreet.com.my/en/job-search/computer-information-technology-jobs/?job-type=internship', { waitUntil: 'load' });
     // await page.waitForSelector('.result_text a');
     await page.setViewport({
-        width: 1200,
-        height: 800
+        width: 1500,
+        height: 1500
     });
 
 
     // Get the "viewport" of the page, as reported by the page.
     const data = await page.evaluate(() => {
 
-        var names = document.querySelectorAll('.job-list-title h4');
-        var companies = document.querySelectorAll('.job-list-title p');
-        var locations = document.querySelectorAll('.job-list-title p');
-        var links = document.querySelectorAll('.job-list-title h4 a');
+        var names = document.querySelectorAll('article a div');
+        var companies = document.querySelectorAll('#contentContainer > div.FYwKg._3VCZm > div > div > div.FYwKg.XEnxm_1 > div > div > div:nth-child(3) > div > div > div > div > div > article > div > div > div.FYwKg.d7v3r._3aoZS_1 > div:nth-child(1) > div > div.FYwKg._20Cd9._32Ekc._3Ve9Z > div > div.FYwKg._11hx2_1 > div.FYwKg.d7v3r._2uGS9_1 > div:nth-child(2) > span > span > div > a');
+        var locations = document.querySelectorAll('#contentContainer > div.FYwKg._3VCZm > div > div > div.FYwKg.XEnxm_1 > div > div > div:nth-child(3) > div > div > div > div > div > article > div > div > div.FYwKg.d7v3r._3aoZS_1 > div:nth-child(2) > div > div > div > div:nth-child(1) > span > span > div:nth-child(1) > a');
+        var links = document.querySelectorAll('#contentContainer > div.FYwKg._3VCZm > div > div > div.FYwKg.XEnxm_1 > div > div > div:nth-child(3) > div > div > div > div > div > article > div > div > div.FYwKg.d7v3r._3aoZS_1 > div:nth-child(1) > div > div.FYwKg._20Cd9._32Ekc._3Ve9Z > div > div.FYwKg._11hx2_1 > div.FYwKg.d7v3r._2uGS9_1 > div:nth-child(1) > div > h1 >a');
 
         var name = Array.from(names, name => name.innerText)
         var company = Array.from(companies, company => company.innerText)
